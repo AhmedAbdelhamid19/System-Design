@@ -126,3 +126,28 @@
 			§ Backups are often taken periodically (daily, hourly, etc.).
 			§ You restore from a backup when needed; it’s not automatically in sync.
 			§ not sensitive to programmer error if the backup was taken before the error occurred, so if programmer delete by default rows of table or dropped a table, then the backup safe you
+	- Is a backend API supposed to be stateless or stateful, and why do most modern systems prefer a stateless design?
+		○ Backend APIs should be stateless, especially in modern web systems, unless there is a specific case that forces a stateful design.
+		○ because When many users hit your backend at the same time, you want any request to be handle by any server (if you scaled horizontally).
+		○ if it was stateful (The server keeps the user session or temporary data in its memory), you will consume server resources.
+	- talk about the process that you will go through it when you vertically scaling?
+		○ first look at what we can scale (CPU, RAM, Disk, Network)
+			§ we should pick what needs to be scaled not scale the entire server
+		○ when we use most of resources (near to 100%) of the server
+			§ A web app may respond very slowly or timeout for users, heavy calculations may freeze the system
+			§ Applications crash, database queries fail, system becomes very slow
+			§ All services stop responding, client requests fail, sometimes need a restart
+			§ Users experience timeouts, slow page loads, streaming services buffer or fail
+		○ so you should have threshold so if you exceeded it, then you should think about scaling your app (vertically or horizontally with load balancer)
+	- if you have the ability to double the resources of the server itself or add another server with same resources what you prefer?
+		○ add another server (with load balancer), so we avoid SPOF if one server fail then the other server will take over.
+		○ Diminishing returns:
+			§ after a certain point, adding more resources gives you smaller added performance value related to cost added
+		○ adding more resources instead of split to 2 server may little good because you avoid overhead of network if servers talk to each other.
+	- what's multi-master DB clustering?
+		○ multiple DB nodes can accept write, and the changes are replicated to other nodes
+		○ pros: High availability, write can happen anywhere (in master node).
+		○ cons: conflict should be handled if 2 nodes update the same data.
+	- what's the difference between latency and availability?
+		○ latency means time taken to response, measured by seconds/milliseconds.
+		○ availability (able to response) is the of time the system able to response, measured by percent like 99%, 99.99%
