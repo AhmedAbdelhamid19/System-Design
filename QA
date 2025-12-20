@@ -44,4 +44,20 @@
 			§ how multiple machines agree on one decision so the system does not behave incorrectly?
 			§ Imagine there is one last airplane seat, and there's request from egypt and another from USA and each go to different servers, then how your distributed system handle these situation?
 		○ cluster
-means group of separate computers or servers that work together as one system.
+			§ means group of separate computers or servers that work together as one system.
+	- what's the difference between fault tolerance and availability?
+		○ they are connected but are not the same.
+		○ system may have High availability but low fault tolerance
+			§ you have powerful server with no backups, so your system available unless it fails
+			§ availability touches with latency, load and responsiveness, for example we made our system available 99% percent of the time or 99.99% percent .
+		○ system may have High fault tolerance but low availability
+			§ A system might survive failures but take a long time to recover or respond slowly
+			§ fault tolerance means when part of system dies, then who should your system recover quickly and make your data in safe hand.
+	- what's master-slave in systems or databases, how it's useful?
+		○ It is a replication model where you have main node/nodes called the master and one or more secondary nodes called slaves.
+		○ The master is the only one who receives write operations, The slaves only receive read operations and copies of the master data.
+		○ A write request goes to the master, then The master updates its data, then:
+			§ if strong consistency, The master sends the new data to the slaves so they become copies of it then response to the user, now slaves ready to read operations
+			§ if eventually consistency, the master response to the user then The master sends the new data to the slaves so they become copies of it, now slaves ready to read operations
+		○ reduce load on the master by sending read operations to slaves, very useful in heavy/intensive read systems.
+		○ can increase availability since slaves can take over when the master fails.
