@@ -14,3 +14,16 @@
 			§ you don't need to make joins (you can store nested data), support fast read, but cost duplication.
 			§ instead of storing data in seperated tables, we store it as nested data (store devices information inside user collection).
       § should have implicit schema to reduce work and overhead you make, means avoiding random keys and random nested data …etc. to ease it to you when you work with backend (deserialization).
+	- why NoSQL scalable / what's more scalable NoSQL or relational DB?
+		○ NoSQL systems are generally easier to scale horizontally than traditional relational databases.
+		○ NoSQL is designed to scale horizontally by default, relational DB is designed to be correct by default.
+		○ NoSQL avoid joins, because it by default store related data together, one request hits one server, it avoid overhead specially with joins with sharded data.
+	- what's more high available NoSQL or relational DB?
+		○ NoSQL prioritizes availability, relation DB support strong consistency (remember CAP theorem)
+		○ NoSQL is spread to different servers (what supposed to be), and many nodes active at the same time, if one node dies other continue serving.
+	- what problems may appears with duplication with NoSQL databases?
+		○ the core problem is keeping duplicated data consistent (up-to-date).
+		○ for example if 'price' stored in product document and order document …., and 'price' is updated, the challenge is how to update the price in all instances in all documents.
+		○ updates are often propagated asynchronously, which commonly results in eventual consistency where users may temporarily read stale data.
+		○ there're a lot of ways to update the data: 
+			§ background propagation (send event to workers to updated related parts), immutable data (old data never update), read repair (on read detect stale data) …etc.
