@@ -1,0 +1,8 @@
+	- A distributed system is:
+		○ many machines working together as if they are one system.
+		○ Multiple computers (servers) connected over a network, working together to behave like one powerful system.
+	- why do we even need distributed systems?
+		○ too many users, Millions open the app at the same moment. One server cannot handle millions of requests per second.
+		○ Too much data (petabytes of data)
+		○ Need for high reliability, If your only server dies, your whole business dies. Companies need systems that continue working even when hardware fails.
+		○ Need for fast global access, A user in Egypt, another in Germany, another in the USA. One server cannot give all of them low-latency responses.
