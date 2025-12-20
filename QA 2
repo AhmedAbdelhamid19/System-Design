@@ -42,3 +42,19 @@
 		○ IndexedDB is used to store large amounts of structured data on the client side, enabling offline support, faster access, and reduced network requests.
 		○ it's browser built in data base, persistent, asynchronous, used for offline support, caching API responses …etc.
 		○ limited to browsers only, and user can clear it, and not shared across devices.
+	- list some types of NoSQL database.
+		○ key value
+			§ key is unique identifier, and value is blob of data.
+				□ key here like PK in relation database, that from it you ger the row, but here from key you get the value of that document
+			§ basic operations: get(key), set(key, value), delete(key)
+			§ hash function used to get the location of the data in time near to O(1), it's Extremely fast for lookups by key.
+			§ Value can be anything (string, JSON, binary), but the database cannot query inside it (unless the engine has special features).
+			§ the value is opaque to the database (database does not understand the structure).
+			§ Redis, DynamoDB are popular key value databases 
+		○ document
+			§ A database that stores data as documents, usually in JSON-like format (MongoDB uses BSON, which is binary JSON), Different documents in the same collection can have different fields.
+			§ Each document is a self-contained unit of data. It can have nested objects, arrays, and varying fields.
+			§ Can query by indexed fields, including nested keys, and supports secondary indexes and complex queries.
+			§ Examples: MongoDB
+		○ wide column
+		○ graph
