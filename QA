@@ -87,10 +87,42 @@
 		○ C for Consistency (definition of consistency here differ from system design)
 			§ Consistency means the data must move from one valid state to another valid state based on rules, constraints (FK, unique …) and business logic.
 			§ for example bank account balance cannot become negative, or FK mustn't refer to id that doesn't, or redundant value in unique columns …etc.
-			
 		○ I for Isolation
 			§ Isolation means your transaction should not see the unfinished work of another transaction.
 			§ Transactions run as if they are happening alone, even if many people are using the system at once.
 			§ isolation protect you from concurrency problems like dirty reads …etc.
 		○ D for Durability
 			§ Durability means once a transaction is committed, the data will not be lost, even if the system crashes.
+	- what serverless means?
+		○ means you don’t manage servers.
+		○ Serverless is a cloud execution model where you run code without provisioning, configuring, or managing servers.
+		○ The cloud provider (AWS, Azure, GCP) handles scaling, infrastructure, failures …etc.
+	- what's CDN (Content Delivery Network)?
+		○ CDN is a network of servers around the world that cache (store) your static content (images, videos, CSS, JS) close to users.
+		○ CDNs do not execute code or store dynamic data like backend or database servers. They only cache and serve static content (images, videos, CSS, JS) close to users..
+		○ speed up loading time and reduce traffic on your main server and reduce latency and make your application global
+		○ for example if User from Germany wants image logo.png so CDN checks nearest server, If cached then returns immediately (super-fast), if not then fetches from your origin server, caches it, returns it, so Next German user gets it instantly from local CDN node
+		○ one of most popular CDNs is Cloudflare.
+	- what's DNS (Domain name system)?
+		○ DNS is the internet’s phonebook, that converts a domain name to IP address (to make it human friendly).
+		○ when you type facebook.com then the browser ask DNS to give him the IP address, then the browser use IP to connect to the server, and website loads
+		○ Without DNS, the internet would look like this https://142.250.190.14/home instead of google.com
+	- list some challenges should be handled with caching?
+		○ expiry time should be handled carefully.
+		○ when the cache be updated.
+		○ caching in horizontal scaling.
+		○ complexity and development time and effort
+	- what's the difference between replica and backup?
+		○ replica:
+			§ A replica is a live copy of your database or server that is continuously updated to reflect changes from the primary source.
+			§ may be synchronous (strong consistency) or asynchronous (eventual consistency)
+			§ If the primary database goes down, the replica can often take over immediately.
+			§ you may have master node to write, and slaves nodes (replicas) for read (there are other types other than master-slave model)
+			§ sensitive to programmer error:
+				□ if programmer delete by default rows of table or dropped a table, then replicas also affected
+		○ backup
+			§ A backup is a point-in-time copy of your data stored separately, usually not live.
+			§ Mainly for data recovery after data loss, corruption, or accidental deletion.
+			§ Backups are often taken periodically (daily, hourly, etc.).
+			§ You restore from a backup when needed; it’s not automatically in sync.
+			§ not sensitive to programmer error if the backup was taken before the error occurred, so if programmer delete by default rows of table or dropped a table, then the backup safe you
