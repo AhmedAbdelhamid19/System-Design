@@ -65,3 +65,35 @@
 		○ for example if you have 5 DB all for read and write, then if you made write to 3 DB and read from 3 DB then you guarantee to take latest data in read query (with read, check overhead).
 		○ it's another solution other than write to all node and read from 1 node, here we make R + W > RF, so we write to less node and read from more node and make another overhead to take latest data.
 		○ you can make it strong consistency if R + W > RF, or not strong consistency if R + W <= RF (some time you may accept stale data, another you are lucky and get most recent data)
+	- what's the different between NoSQL and use JSON column in relation database?
+		○ relation DB: 
+			§ You still have tables and columns, but one column can store dynamic JSON data.
+			§ Horizontal scaling (sharding) is possible, but becomes complex due to joins, cross shard queries, and distributed transactions.
+			§ some DBMS allow you to query inside JSON but it's not as rich as NoSQL query system
+		○ NoSQL:
+			§ You can store data in formats like key-value, document (JSON-like), column-family, or graph.
+			§ Built to scale horizontally easily (sharding across multiple servers is native).
+			§ you can query based on keys and nested keys (document), this supported in NoSQL databases like MongoDB
+	- how id constructed to each row inserted in distributed/horizontal-scaled DB like in NoSQL, how you guarantee that id is unique?
+		○ classic auto increment id breaks, because ids may be redundant across machines.
+		○ solution 1 is to make central id generator service
+			§ one small service is responsible only for generating ids, all app servers ask it for a new id.
+			§ downsides: 
+				□ this service becomes a bottleneck, so if it goes down, writes stop
+				□ another network overhead. 
+		○ solution 2 is to generate Guid
+			§ it is a large identifier generated locally, often using randomness or a combination of time and machine specific data.
+			§ it's for example 128 bits in size, commonly represented as a 36 character string including separators.
+			§ downsides: 
+				□ large size, it will take more extra space
+				□ indexes will become slower
+				□ ids are not ordered
+		○ solution3 is using current time with something unique
+			§ for example: timestamp (you can use UTC to avoid clock skew) + machine id + counter
+				□ time gives order, node id avoids cross server collision, sequence avoids same time collision
+			§ impact:
+				□ ids are sortable
+				□ good index performance
+				□ no central service needed
+		○ solution 4 is to give each server range of ids
+		○ other solution is to let it to the DBMS itself like MongoDB …etc.
