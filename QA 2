@@ -1,0 +1,16 @@
+	- what's the difference between relational DB and NoSQL DB?
+		○ relational DB focuses on correctness and structure first, NoSQL focuses on scaling and flexibility.
+		○ sometimes hybrid system used, so some features deal with NoSQL, other deal with relational DB.
+		○ relational
+			§ correctness, transactions (ACID), integrity.
+			§ data split into many tables connected by relationships, this avoid duplication but requires joins (joins become expensive at scale).
+			§ add new columns requires migration, change schema (modern relational databases support online schema changes without full table locks), lock table, and risk in production.
+			§ you get right data, no contradictions.
+			§ you can make column of type JSON and store nested data (but don't powerful like NoSQL database)
+		○ NoSQL (not only sql)
+			§ scalability, horizontal scale, flexibility (schemaless). 
+			§ data which stored together, used together, you build it based on 'how will i access this data'.
+			§ data is stored as document structures similar to JSON, using internal binary formats optimized for storage and access.
+			§ you don't need to make joins (you can store nested data), support fast read, but cost duplication.
+			§ instead of storing data in seperated tables, we store it as nested data (store devices information inside user collection).
+      § should have implicit schema to reduce work and overhead you make, means avoiding random keys and random nested data …etc. to ease it to you when you work with backend (deserialization).
