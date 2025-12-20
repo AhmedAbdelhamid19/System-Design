@@ -35,3 +35,10 @@
 			§ user sessions (if user made request, it check session in redis, if exist then user authenticated)
 			§ API rate limit (if user made 100 request, the counter stored in redis) …etc.
 		○ Redis is not main database, because RAM is expensive, and data can be lost if not persisted.
+	- what's elastic search, what problem it solve?
+		○ relational databases can search text using indexes, but they are not optimized for large scale full text search, relevance ranking, and complex text queries, which leads to poor performance at scale.
+		○ Elasticsearch stores its own copy of data, but it is usually not the source of truth; the primary data lives in another database.
+	- what's Client side IndexedDB, what problem it solves?
+		○ IndexedDB is used to store large amounts of structured data on the client side, enabling offline support, faster access, and reduced network requests.
+		○ it's browser built in data base, persistent, asynchronous, used for offline support, caching API responses …etc.
+		○ limited to browsers only, and user can clear it, and not shared across devices.
