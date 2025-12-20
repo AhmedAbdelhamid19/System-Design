@@ -27,3 +27,11 @@
 		○ updates are often propagated asynchronously, which commonly results in eventual consistency where users may temporarily read stale data.
 		○ there're a lot of ways to update the data: 
 			§ background propagation (send event to workers to updated related parts), immutable data (old data never update), read repair (on read detect stale data) …etc.
+	- what's Redis, what problem Redis solves?
+		○ database access is slow compared to memory, some data is read and written very frequently
+		○ Redis keep data in RAM, so queries become very fast (micro seconds), it's in memory key value data store
+		○ it used to cache 
+			§ database queries
+			§ user sessions (if user made request, it check session in redis, if exist then user authenticated)
+			§ API rate limit (if user made 100 request, the counter stored in redis) …etc.
+		○ Redis is not main database, because RAM is expensive, and data can be lost if not persisted.
