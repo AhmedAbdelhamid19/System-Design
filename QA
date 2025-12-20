@@ -61,3 +61,18 @@
 			§ if eventually consistency, the master response to the user then The master sends the new data to the slaves so they become copies of it, now slaves ready to read operations
 		○ reduce load on the master by sending read operations to slaves, very useful in heavy/intensive read systems.
 		○ can increase availability since slaves can take over when the master fails.
+	- what's the difference between replica, redundancy, partitioning, sharding?
+		○ Replication (copy data) 
+			§ focuses on data and means copying data from one server to other servers.
+		○ Redundancy (copy component/resource …) 
+			§ means having extra resources available so the system keeps working if something fails (servers, databases (backup), networks, power supplies, disks).
+		○ Partitioning 
+			§ means splitting one database table into logical parts inside the same database server.
+			§ horizontal partitioning
+				□ for example the able order is split into partition 2023, 2024 …
+				□ organize and speed up large tables, inside same server like single big notebook divided into sections
+			§ vertical partitioning
+				□ split the columns itself in very big table that consist of multiple columns and connect them by FK
+		○ sharding
+			§ means splitting the data across multiple servers or multiple database instances, focuses on different machines.
+			§ for example, user A to M lives on Server1, user N to Z lives on server2, like instead of one notebook, you make multiple notebook each7 for some sort of data
