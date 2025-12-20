@@ -6,3 +6,42 @@
 		○ Too much data (petabytes of data)
 		○ Need for high reliability, If your only server dies, your whole business dies. Companies need systems that continue working even when hardware fails.
 		○ Need for fast global access, A user in Egypt, another in Germany, another in the USA. One server cannot give all of them low-latency responses.
+	- explain the following?
+		○ Scalability: (how to handle more workload)
+			§ vertical scalability (scale up): upgrade the server to more powerful server (more ram …etc.)
+			§ horizontal scalability (scale out): Add more machines when load increases
+		○ Elasticity: (focus on both directions, increase and decrease based on traffic)
+			§ Resources automatically grow and shrink based on traffic.
+			§ cloud providers like AWS support these.
+		○ Replication: 
+			§ Data is copied across multiple machines to improve availability and fault tolerance. There are different replication models such as master slave and others.
+			§ Synchronous Replication (with writes): Every write operation must be applied to all replicas at the same time before the system acknowledges success to the client 
+				□ strong consistency, less scalability, less availability, more latency, slower writes but no data loss in case of primary failure
+			§ Asynchronous Replication (with writes): The primary node write the data first then immediately acknowledges writes to the client without waiting for replicas to confirm. after that Replicas are updated in the background 
+				□ faster writes, more scalability, eventual consistency, more availability
+				□ less latency but potential data loss if for any reason the replica wasn't update with new value then it will have the old value for ever
+		○ Fault Tolerance: 
+			§ System keeps working even if one machine dies
+		○ SPOF (single point of failure)
+			§ A component (server, database, network device) whose failure will bring down the entire system
+		○ Redundancy
+			§ Having duplicate components so that if one fails, another can take over (like backup)
+		○ Availability: 
+			§ The system is able to serve users most of the time and Users can access the system successfully when they try, even when server fail
+		○ Consistency: 
+			§ All machines see the same data.
+			§ Strong consistency: all servers see the new value immediately, like bank balance or booking ticket.
+			§ Eventual consistency: servers may show old data briefly (for short time), like post/comment update/delete in facebook, sometimes it's acceptable depending on the business.
+		○ Partitioning: 
+			§ splitting data into logical parts, which can be within the same server or across multiple servers depending on the system.
+		○ Sharding: 
+			§ Splitting data across many machines
+		○ Latency: 
+			§ Delay to respond
+		○ reliability: 
+			§ Reliability is the system’s ability to run correctly over time, tolerating failures without data loss or incorrect behavior (do what's supposed to do) 
+		○ Coordination:
+			§ how multiple machines agree on one decision so the system does not behave incorrectly?
+			§ Imagine there is one last airplane seat, and there's request from egypt and another from USA and each go to different servers, then how your distributed system handle these situation?
+		○ cluster
+means group of separate computers or servers that work together as one system.
