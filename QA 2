@@ -58,3 +58,10 @@
 			§ Examples: MongoDB
 		○ wide column
 		○ graph
+	- NoSQL Replication & Consistency (R, W, RF)
+		○ RF (Replication Factor): Number of nodes holding a copy of the data.
+		○ W (Write quorum): Minimum nodes that must acknowledge a write.
+		○ R (Read quorum): Minimum nodes that must respond to a read.   
+		○ for example if you have 5 DB all for read and write, then if you made write to 3 DB and read from 3 DB then you guarantee to take latest data in read query (with read, check overhead).
+		○ it's another solution other than write to all node and read from 1 node, here we make R + W > RF, so we write to less node and read from more node and make another overhead to take latest data.
+		○ you can make it strong consistency if R + W > RF, or not strong consistency if R + W <= RF (some time you may accept stale data, another you are lucky and get most recent data)
