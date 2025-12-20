@@ -76,3 +76,21 @@
 		○ sharding
 			§ means splitting the data across multiple servers or multiple database instances, focuses on different machines.
 			§ for example, user A to M lives on Server1, user N to Z lives on server2, like instead of one notebook, you make multiple notebook each7 for some sort of data
+	- what's the problems that may appears with sharding?
+		○ joins, because you will need to make network calls so it slow the query and make it complex (cross sharding queries).
+	- explain ACID in databases
+		○ ensure a transaction is safe and reliable, A transaction is a group of operations that act like one unit 
+			§ like transfer money from one account to another (subtract from account A and add to account B).
+		○ A for Atomicity
+			§ Atomicity means all or nothing, Either the entire transaction happens or none of it happens, no partial changes
+			§ If the system crashes after subtracting money from account A but before adding to account B, then the database rolls back the transaction
+		○ C for Consistency (definition of consistency here differ from system design)
+			§ Consistency means the data must move from one valid state to another valid state based on rules, constraints (FK, unique …) and business logic.
+			§ for example bank account balance cannot become negative, or FK mustn't refer to id that doesn't, or redundant value in unique columns …etc.
+			
+		○ I for Isolation
+			§ Isolation means your transaction should not see the unfinished work of another transaction.
+			§ Transactions run as if they are happening alone, even if many people are using the system at once.
+			§ isolation protect you from concurrency problems like dirty reads …etc.
+		○ D for Durability
+			§ Durability means once a transaction is committed, the data will not be lost, even if the system crashes.
