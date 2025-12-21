@@ -22,3 +22,11 @@
   ○ used with systems like social network, features like 'comments' 'likes' …etc.
 - CA 
   ○ systems do not exist in real distributed systems.
+	- CAP theorem means 
+		○ When a partition happens, you must choose which property to sacrifice between consistency and availability.
+		○ you choose which failure you prefer.
+	- in interview keep in mind
+		○ If your system runs on more than one machine, partition tolerance is mandatory.
+		○ CA systems do not exist in real distributed systems, CA systems can exist only when there is no network partition.
+		○ say for example 'My system prioritizes consistency over availability during network failures because ….'.
+		○ Interviewers care about tradeoffs, don't say 'I choose AP', but say 'I choose AP because showing stale data for 5 seconds is acceptable for this product'
