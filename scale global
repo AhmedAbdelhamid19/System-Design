@@ -28,4 +28,4 @@
 			- GDPR in EU, HIPAA … in USA
 			- for example in EU, Explicit user consent required for cookies, tracking, data processing …etc., Often requires data to be stored in-region or at least comply with GDPR when transferring outside EU
 			- the fines with this laws are very high, if you deployed to region and you broke the rules.
-      - you should not rely on a single global primary database for all regions.
+      	○ you should not rely on a single global primary database for all regions.
