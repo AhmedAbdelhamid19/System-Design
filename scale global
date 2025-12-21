@@ -1,0 +1,12 @@
+- servers >> datacenter >> availability zone >> region >> global
+- what's the difference between load balancer and geo routing and DNS.
+  ○ they operate at different layers and different decisions.
+  ○ load balancer:
+    - mainly decides which server handles the request
+  ○ geo routing 
+    - geo routing decides which region or endpoint IP the user should be sent to
+  ○ DNS is like the internet’s phone book. Every website has an IP address
+    - we are humans, and we remember names so DNS translates the human-friendly name into the computer-friendly IP address.
+    - so when you type the url, then computer send to DNS server and replies with IP.
+    - your browser connects to that Ip and loads the website.
+    - DNS with geo routing enabled returns an IP address that already points to the chosen region.
