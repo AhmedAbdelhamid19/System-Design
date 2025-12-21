@@ -12,3 +12,13 @@
 - partition tolerance
   ○ means, the system continues to work even when the network breaks between machines.
   ○ like network link failure, or timeout between servers.
+- CP
+  ○ Consistency and Partition tolerance
+  ○ If a network partition occurs, the system will sacrifice Availability to maintain data integrity.
+  ○ The system may reject requests or time out if it cannot guarantee that it is returning the most recent write. Users may see errors (e.g., "Service Unavailable"), but they will never receive "stale" or incorrect data.
+- AP
+  ○ Availability and Partition tolerance
+  ○ If a network partition occurs, the system will sacrifice strict Consistency to remain operational, Data may be stale temporarily (eventual consistency), but data syncs later, so Every request received by a non-failing node must result in a successful (non-error) response.
+  ○ used with systems like social network, features like 'comments' 'likes' …etc.
+- CA 
+  ○ systems do not exist in real distributed systems.
