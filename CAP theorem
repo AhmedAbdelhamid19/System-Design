@@ -1,0 +1,6 @@
+- core problem
+  ○ When your system runs on more than one machine, failures and network delays are guaranteed
+  ○ you cannot assume all machines see the same data, you cannot assume that the network is always reliable
+  ○ CAP theorem explains the limits of distributed systems under these conditions.
+- when a network partition happen you must choose consistency or availability, you cannot keep both.
+  ○ Partition tolerance is not optional in real systems, it's mandatory
