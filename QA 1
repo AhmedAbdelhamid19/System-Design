@@ -6,6 +6,22 @@
 	○ Too much data (petabytes of data)
 	○ Need for high reliability, If your only server dies, your whole business dies. Companies need systems that continue working even when hardware fails.
 	○ Need for fast global access, A user in Egypt, another in Germany, another in the USA. One server cannot give all of them low-latency responses.
+	- What is the difference between design patterns, software architecture, and system design?
+		○ Design Pattern:
+			- Concerned with how classes and objects interact inside a single application, Focuses on writing clean, reusable, testable code
+			- Solves recurring code level problems, Operates at small scale inside one codebase and usually one process
+			- Does not decide how the whole system is structured, only how parts of the code cooperate
+			- for example choose repository pattern to separate database access from business logic …etc, so you Improve code quality and maintainability, not scalability of the system.
+		○ Software Architecture:
+			- Concerned with how the application is structured internally, and define layers.
+			- Solves maintainability and evolution problems as the codebase grows, and operates at medium scale inside one application or service.
+			- for example choose 3 Tier layer (frontend, backend, database)
+		○ System Design:
+			- Concerned with designing the entire system that runs across many machines, includes servers, networks, databases, caches, load balancers, and external services
+			- Operates at very large scale with millions of users and requests, it's a problem solving process, not a fixed structure.
+			- for example, designing an Instagram like backend:
+				□ Load balancers to distribute traffic, and Caching to reduce database load.
+				□ Databases and replication strategies, CDN for images and videos, Microservices for independent scaling.
 - explain the following?
 	○ Scalability: (how to handle more workload)
 		- vertical scalability (scale up): upgrade the server to more powerful server (more ram …etc.)
