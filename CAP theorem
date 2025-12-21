@@ -4,3 +4,11 @@
   ○ CAP theorem explains the limits of distributed systems under these conditions.
 - when a network partition happen you must choose consistency or availability, you cannot keep both.
   ○ Partition tolerance is not optional in real systems, it's mandatory
+- Consistency (strong consistency)
+  ○ means every successful read returns the most recent successful write
+- Availability
+  ○ Every request receives a response, without the guarantee that it contains the most recent write.
+  ○ The system remains operational even if some nodes are down, The system does not refuse requests due to coordination or consistency checks.
+- partition tolerance
+  ○ means, the system continues to work even when the network breaks between machines.
+  ○ like network link failure, or timeout between servers.
