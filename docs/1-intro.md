@@ -7,7 +7,7 @@
 
 ## Why use distributed systems?
 
-- To handle massive concurrent users — one server cannot handle millions of requests per second.
+- To handle massive concurrent users, one server cannot handle millions of requests per second.
 - To store and process very large volumes of data (petabytes).
 - To increase reliability: a single failed server does not bring the whole system down.
 - To reduce latency for global users by placing services closer to them.
