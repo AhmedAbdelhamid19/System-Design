@@ -2,8 +2,8 @@
 
 ## Core problem
 
-- In a distributed system (more than one machine) failures and network delays are guaranteed.
-- You cannot assume all machines see the same data or that the network is always reliable.
+- In a distributed system (more than one machine) failures and network delay may happen.
+- By default You cannot assume all machines see the same data or that the network is always reliable.
 - CAP theorem explains the limits of distributed systems under these conditions.
 
 ## CAP Theorem (short)
@@ -14,14 +14,14 @@
 ## Definitions
 
 - Consistency (strong): every successful read returns the most recent successful write.
-- Availability: every request receives a response (might be stale) — the system remains operational even if some nodes are down.
+- Availability: every request receives a response (might be stale), so the system remains operational even if some nodes are down (sometimes it's acceptable based on the context, like Facebook ..., sometimes not acceptable like bank system).
 - Partition tolerance: the system continues to work when the network breaks between machines.
 
 ## Tradeoffs
 
 - CP (Consistency + Partition tolerance): Sacrifice Availability during partitions to maintain data integrity. The system may reject requests when it cannot guarantee the latest data.
 - AP (Availability + Partition tolerance): Sacrifice strict Consistency to remain operational during partitions (eventual consistency). Useful when stale data for short time is acceptable (social feeds, likes, comments).
-- CA (Consistency + Availability): Only possible when there is no partition — unrealistic in distributed systems.
+- CA (Consistency + Availability): Only possible when there is no partition, and it's unrealistic in distributed systems.
 
 ## Interview tip
 
