@@ -15,4 +15,5 @@
 ## Challenges with Sharding
 
 - Cross-shard joins are complex and costly (network calls).
+  - for example if you made join with based specific column and some of user in server A and other on Server B, then it cost you network overhead
 - Increased complexity in queries, transactions, and data management.
