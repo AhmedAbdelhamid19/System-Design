@@ -180,3 +180,165 @@
 - Can we have CA in distributed systems?
 	○ No in distributed systems
 	○ You can have CA only when there is no network partition. In the presence of a partition, CA is impossible, which is what CAP actually states.
+- what's the difference between relational DB and NoSQL DB?
+	○ relational DB focuses on correctness and structure first, NoSQL focuses on scaling and flexibility.
+	○ sometimes hybrid system used, so some features deal with NoSQL, other deal with relational DB.
+	○ relational
+		- correctness, transactions (ACID), integrity.
+		- data split into many tables connected by relationships, this avoid duplication but requires joins (joins become expensive at scale).
+		- add new columns requires migration, change schema (modern relational databases support online schema changes without full table locks), lock table, and risk in production.
+		- you get right data, no contradictions.
+		- you can make column of type JSON and store nested data (but don't powerful like NoSQL database)
+	○ NoSQL (not only sql)
+		- scalability, horizontal scale, flexibility (schemaless). 
+		- data which stored together, used together, you build it based on 'how will i access this data'.
+		- data is stored as document structures similar to JSON, using internal binary formats optimized for storage and access.
+		- you don't need to make joins (you can store nested data), support fast read, but cost duplication.
+		- instead of storing data in seperated tables, we store it as nested data (store devices information inside user collection).
+  - should have implicit schema to reduce work and overhead you make, means avoiding random keys and random nested data …etc. to ease it to you when you work with backend (deserialization).
+- why NoSQL scalable / what's more scalable NoSQL or relational DB?
+	○ NoSQL systems are generally easier to scale horizontally than traditional relational databases.
+	○ NoSQL is designed to scale horizontally by default, relational DB is designed to be correct by default.
+	○ NoSQL avoid joins, because it by default store related data together, one request hits one server, it avoid overhead specially with joins with sharded data.
+- what's more high available NoSQL or relational DB?
+	○ NoSQL prioritizes availability, relation DB support strong consistency (remember CAP theorem)
+	○ NoSQL is spread to different servers (what supposed to be), and many nodes active at the same time, if one node dies other continue serving.
+- what problems may appears with duplication with NoSQL databases?
+	○ the core problem is keeping duplicated data consistent (up-to-date).
+	○ for example if 'price' stored in product document and order document …., and 'price' is updated, the challenge is how to update the price in all instances in all documents.
+	○ updates are often propagated asynchronously, which commonly results in eventual consistency where users may temporarily read stale data.
+	○ there're a lot of ways to update the data: 
+		- background propagation (send event to workers to updated related parts), immutable data (old data never update), read repair (on read detect stale data) …etc.
+- what's Redis, what problem Redis solves?
+	○ database access is slow compared to memory, some data is read and written very frequently
+	○ Redis keep data in RAM, so queries become very fast (micro seconds), it's in memory key value data store
+	○ it used to cache 
+		- database queries
+		- user sessions (if user made request, it check session in redis, if exist then user authenticated)
+		- API rate limit (if user made 100 request, the counter stored in redis) …etc.
+	○ Redis is not main database, because RAM is expensive, and data can be lost if not persisted.
+- what's elastic search, what problem it solve?
+	○ relational databases can search text using indexes, but they are not optimized for large scale full text search, relevance ranking, and complex text queries, which leads to poor performance at scale.
+	○ Elasticsearch stores its own copy of data, but it is usually not the source of truth; the primary data lives in another database.
+- what's Client side IndexedDB, what problem it solves?
+	○ IndexedDB is used to store large amounts of structured data on the client side, enabling offline support, faster access, and reduced network requests.
+	○ it's browser built in data base, persistent, asynchronous, used for offline support, caching API responses …etc.
+	○ limited to browsers only, and user can clear it, and not shared across devices.
+- list some types of NoSQL database.
+	○ key value
+		- key is unique identifier, and value is blob of data.
+			□ key here like PK in relation database, that from it you ger the row, but here from key you get the value of that document
+		- basic operations: get(key), set(key, value), delete(key)
+		- hash function used to get the location of the data in time near to O(1), it's Extremely fast for lookups by key.
+		- Value can be anything (string, JSON, binary), but the database cannot query inside it (unless the engine has special features).
+		- the value is opaque to the database (database does not understand the structure).
+		- Redis, DynamoDB are popular key value databases 
+	○ document
+		- A database that stores data as documents, usually in JSON-like format (MongoDB uses BSON, which is binary JSON), Different documents in the same collection can have different fields.
+		- Each document is a self-contained unit of data. It can have nested objects, arrays, and varying fields.
+		- Can query by indexed fields, including nested keys, and supports secondary indexes and complex queries.
+		- Examples: MongoDB
+	○ wide column
+	○ graph
+- NoSQL Replication & Consistency (R, W, RF)
+	○ RF (Replication Factor): Number of nodes holding a copy of the data.
+	○ W (Write quorum): Minimum nodes that must acknowledge a write.
+	○ R (Read quorum): Minimum nodes that must respond to a read.   
+	○ for example if you have 5 DB all for read and write, then if you made write to 3 DB and read from 3 DB then you guarantee to take latest data in read query (with read, check overhead).
+	○ it's another solution other than write to all node and read from 1 node, here we make R + W > RF, so we write to less node and read from more node and make another overhead to take latest data.
+	○ you can make it strong consistency if R + W > RF, or not strong consistency if R + W <= RF (some time you may accept stale data, another you are lucky and get most recent data)
+- what's the different between NoSQL and use JSON column in relation database?
+	○ relation DB: 
+		- You still have tables and columns, but one column can store dynamic JSON data.
+		- Horizontal scaling (sharding) is possible, but becomes complex due to joins, cross shard queries, and distributed transactions.
+		- some DBMS allow you to query inside JSON but it's not as rich as NoSQL query system
+	○ NoSQL:
+		- You can store data in formats like key-value, document (JSON-like), column-family, or graph.
+		- Built to scale horizontally easily (sharding across multiple servers is native).
+		- you can query based on keys and nested keys (document), this supported in NoSQL databases like MongoDB
+- how id constructed to each row inserted in distributed/horizontal-scaled DB like in NoSQL, how you guarantee that id is unique?
+	○ classic auto increment id breaks, because ids may be redundant across machines.
+	○ solution 1 is to make central id generator service
+		- one small service is responsible only for generating ids, all app servers ask it for a new id.
+		- downsides: 
+			□ this service becomes a bottleneck, so if it goes down, writes stop
+			□ another network overhead. 
+	○ solution 2 is to generate Guid
+		- it is a large identifier generated locally, often using randomness or a combination of time and machine specific data.
+		- it's for example 128 bits in size, commonly represented as a 36 character string including separators.
+		- downsides: 
+			□ large size, it will take more extra space
+			□ indexes will become slower
+			□ ids are not ordered
+	○ solution3 is using current time with something unique
+		- for example: timestamp (you can use UTC to avoid clock skew) + machine id + counter
+			□ time gives order, node id avoids cross server collision, sequence avoids same time collision
+		- impact:
+			□ ids are sortable
+			□ good index performance
+			□ no central service needed
+	○ solution 4 is to give each server range of ids
+	○ other solution is to let it to the DBMS itself like MongoDB …etc.
+- servers >> datacenter >> availability zone >> region >> global
+- what's the difference between load balancer and geo routing and DNS.
+  ○ they operate at different layers and different decisions.
+  ○ load balancer:
+    - mainly decides which server handles the request
+  ○ geo routing 
+    - geo routing decides which region or endpoint IP the user should be sent to
+  ○ DNS is like the internet’s phone book. Every website has an IP address
+    - we are humans, and we remember names so DNS translates the human-friendly name into the computer-friendly IP address.
+    - so when you type the url, then computer send to DNS server and replies with IP.
+    - your browser connects to that Ip and loads the website.
+    - DNS with geo routing enabled returns an IP address that already points to the chosen region.
+	- same data center:
+		○ All servers are in one physical building.
+		○ prefered to be used when app is smaller or medium and users are mostly local, and  the cost may be low
+		○ scaling works by adding a load balancer and more application servers in the same data center.
+		○ network latency between servers is extremely low and usually negligible, user facing latency still depends on how far the user is from the data center.
+		○ pros: very low network delay, simple architecture, easy database consistency.
+		○ cons: the data center is a single point of failure, if the data center fails everything will goes down, user far away still get latency.
+	- same region:
+		○ you pick a region that is geographically closer to the majority of your users, for example in AWS you have 'us-east', 'us-west'  …etc.
+		○ you can pick a region that are closer to your user application, deploy to multiple datacenter in same region.
+		○ you are protected from single data center failures (SPOF), region wide failures are still possible but much rarer.
+	- different region:
+		○ you can deploy to different regions for example near to your users in middle east and to you users in Europe, USA …etc.
+		○  gives you higher availability, This is true global scale.
+		○ lower user latency for nearby users, higher availability and scalability, additional complexity due to data replication and legal requirements based on region you deploy on:
+			- GDPR in EU, HIPAA … in USA
+			- for example in EU, Explicit user consent required for cookies, tracking, data processing …etc., Often requires data to be stored in-region or at least comply with GDPR when transferring outside EU
+			- the fines with this laws are very high, if you deployed to region and you broke the rules.
+      	○ you should not rely on a single global primary database for all regions.
+- core problem
+  ○ When your system runs on more than one machine, failures and network delays are guaranteed
+  ○ you cannot assume all machines see the same data, you cannot assume that the network is always reliable
+  ○ CAP theorem explains the limits of distributed systems under these conditions.
+- when a network partition happen you must choose consistency or availability, you cannot keep both.
+  ○ Partition tolerance is not optional in real systems, it's mandatory
+- Consistency (strong consistency)
+  ○ means every successful read returns the most recent successful write
+- Availability
+  ○ Every request receives a response, without the guarantee that it contains the most recent write.
+  ○ The system remains operational even if some nodes are down, The system does not refuse requests due to coordination or consistency checks.
+- partition tolerance
+  ○ means, the system continues to work even when the network breaks between machines.
+  ○ like network link failure, or timeout between servers.
+- CP
+  ○ Consistency and Partition tolerance
+  ○ If a network partition occurs, the system will sacrifice Availability to maintain data integrity.
+  ○ The system may reject requests or time out if it cannot guarantee that it is returning the most recent write. Users may see errors (e.g., "Service Unavailable"), but they will never receive "stale" or incorrect data.
+- AP
+  ○ Availability and Partition tolerance
+  ○ If a network partition occurs, the system will sacrifice strict Consistency to remain operational, Data may be stale temporarily (eventual consistency), but data syncs later, so Every request received by a non-failing node must result in a successful (non-error) response.
+  ○ used with systems like social network, features like 'comments' 'likes' …etc.
+- CA 
+  ○ systems do not exist in real distributed systems.
+	- CAP theorem means 
+		○ When a partition happens, you must choose which property to sacrifice between consistency and availability.
+		○ you choose which failure you prefer.
+	- in interview keep in mind
+		○ If your system runs on more than one machine, partition tolerance is mandatory.
+		○ CA systems do not exist in real distributed systems, CA systems can exist only when there is no network partition.
+		○ say for example 'My system prioritizes consistency over availability during network failures because ….'.
+		○ Interviewers care about tradeoffs, don't say 'I choose AP', but say 'I choose AP because showing stale data for 5 seconds is acceptable for this product'
