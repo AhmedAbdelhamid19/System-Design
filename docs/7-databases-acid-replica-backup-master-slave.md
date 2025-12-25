@@ -16,7 +16,7 @@
 
 ## Replica vs Backup
 
-- Replica: live copy continuously updated (synchronous or asynchronous). Often used for failover and scaling reads; may be affected by programmer errors that also affect primary.
+- Replica: live copy continuously updated (synchronous or asynchronous). Often used for failover and scaling reads; may be affected by programmer errors that also affect primary (for example if programmer delete by default rows of table or dropped a table, then replicas also affected).
 - Backup: point-in-time copy stored separately for recovery; not live or automatically in sync — safe against accidental deletions if taken earlier.
 
 ## Multi-master clustering

@@ -2,8 +2,15 @@
 
 ## NoSQL Types
 
-- Key-Value: Fast lookup by key (O(1)). Examples: Redis, DynamoDB.
-- Document: Stores self-contained documents (JSON/BSON). Example: MongoDB.
+- Key-Value: 
+    - Fast lookup by key (O(1))
+    - the value often is opaque to the database (database does not understand the structure).
+    - Examples: Redis, DynamoDB.
+- Document: 
+    - Stores self-contained documents (JSON/BSON).
+    - Each document is a self-contained unit of data. It can have nested objects, arrays, and varying fields.
+    - Can query by indexed fields, including nested keys, and supports secondary indexes and complex queries.
+    - Example: MongoDB.
 - Wide Column: Column-family stores (e.g., Cassandra).
 - Graph: Optimized for relationships (nodes/edges).
 
@@ -12,7 +19,8 @@
 - RF (Replication Factor): number of nodes holding a copy of data.
 - W (Write quorum): minimum nodes that must acknowledge a write.
 - R (Read quorum): minimum nodes that must respond to a read.
-- Strong consistency can be achieved if R + W > RF.
+- Strong consistency can be achieved if R + W > RF, for example if you have 5 DB all for read and write, then if you made write to 3 DB and read from 3 DB then you guarantee to take latest data in read query (with read, check overhead)..
+- Not strong consistency if R + W <= RF (some time you may accept stale data, another you are lucky and get most recent data)
 
 ## Why NoSQL is more horizontally scalable
 

@@ -4,6 +4,8 @@
 
 - Network of servers around the world that cache static content (images, video, CSS, JS) close to users.
 - Speeds up loading time, reduces origin traffic, and lowers latency for static assets.
+- for example if User from Germany wants image logo.png so CDN checks nearest server, If cached then returns immediately (super-fast), if not then fetches from your origin server, caches it, returns it, so Next German user gets it instantly from local CDN node
+- one of most popular CDNs is Cloudflare.
 
 ## DNS (Domain Name System)
 
