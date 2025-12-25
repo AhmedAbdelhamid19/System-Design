@@ -6,10 +6,11 @@
 
 ## Practical Advice
 
-- Partition tolerance is mandatory; during partitions you must pick between consistency and availability (CAP).
+- Partition tolerance is mandatory
+- during partitions you must pick between consistency and availability (CAP).
 - When explaining a design choice, justify tradeoffs in business terms (e.g., tolerate 5 seconds of staleness for better availability).
 
 ## Quick Interview Pointers
 
-- Don’t give absolute answers — explain tradeoffs and why a given choice fits the product requirements.
+- Don’t give absolute answers, explain tradeoffs and why a given choice fits the product requirements.
 - Mention CAP where relevant, and tie it to user impact (stale reads vs downtime).
