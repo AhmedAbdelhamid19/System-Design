@@ -82,4 +82,14 @@
     - updates are often propagated asynchronously, which commonly results in eventual consistency where users may temporarily read stale data.
 
 ## there're a lot of ways to update the data in NoSQL database list some?
-- background propagation (send event to workers to updated related parts), immutable data (old data never update), read repair (on read detect stale data) …etc.
+    - background propagation (send event to workers to updated related parts), immutable data (old data never update), read repair (on read detect stale data) …etc.
+
+## what's the difference between latency and availability?
+    - latency means time taken to response, measured by seconds/milliseconds.
+    - availability (able to response) is the of time the system able to response, measured by percent like 99%, 99.99%
+
+## if you have the ability to double the resources of the server itself or add another server with same resources what you prefer?
+    - add another server (with load balancer), so we avoid SPOF if one server fail then the other server will take over.
+    - Diminishing returns:
+        - after a certain point, adding more resources gives you smaller added performance value related to cost added
+    - adding more resources instead of split to 2 server may little good because you avoid overhead of network if servers talk to each other.
